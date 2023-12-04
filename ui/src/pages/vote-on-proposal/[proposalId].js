@@ -5,7 +5,7 @@ import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getProposal } from 'src/utils/fetchProposal';
+import { getProposal } from 'src/utils/proposalTools';
 import Loading from 'src/components/Loading';
 import { vote } from 'src/utils/voteOnProposal';
 
