@@ -2,7 +2,7 @@
 
 ## testnode details
 
-A ganache tesnode is runnig at: http://195.88.57.155:8545
+A ganache tesnode is runnig at: see discord
 
 ChainId: 1337
 

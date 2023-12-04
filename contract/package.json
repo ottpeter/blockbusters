@@ -43,10 +43,9 @@
     "yarn": "^1.22.19"
   },
   "scripts": {
-    "testnet:deploy": "hardhat --network bsc_testnet deploy",
-    "testnet:contracts": "hardhat --network bsc_testnet deploy --tags GetContracts",
-    "uat:contracts": "hardhat --network bsc_testnet_uat deploy --tags GetContracts",
-    "bsc:contracts": "hardhat --network bsc deploy --tags GetContracts",
+    "dev:deploy": "hardhat --network dev deploy",
+    "dev:contracts": "hardhat --network dev deploy --tags GetContracts",
+    "dev:saveContracts": "hardhat --network dev deploy --tags GetContracts > ../Contracts.md",
     "slither:test": "slither . --solc-remaps '@openzeppelin=node_modules/@openzeppelin @chainlink=node_modules/@chainlink'",
     "slither:full": "slither ."
   }

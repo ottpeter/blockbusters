@@ -31,6 +31,11 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 });
 
 const accounts = [];
+    if (process.env.DEPLOYER_KEY !== undefined) accounts.push(process.env.DEPLOYER_KEY);
+    if (process.env.DAOOWNER1_KEY !== undefined) accounts.push(process.env.DAOOWNER1_KEY);
+    if (process.env.DAOOWNER2_KEY !== undefined) accounts.push(process.env.DAOOWNER2_KEY);
+    if (process.env.DAOOWNER3_KEY !== undefined) accounts.push(process.env.DAOOWNER3_KEY);
+    if (process.env.USER_KEY !== undefined) accounts.push(process.env.USER_KEY);
 
 
 const reportFile = `reports/gas-report-${new Date().toISOString().replace(/:/g, '-')}-${(process.argv.includes('--grep')) ? process.argv[process.argv.indexOf('--grep') + 1].replace("|","_") : 'all'}.log`
@@ -92,6 +97,18 @@ const config: HardhatUserConfig = {
     deployer: {
       default: 0,
     },
+    daoOwner1: {
+      default: 1,
+    },
+    daoOwner2: {
+      default: 2,
+    },
+    daoOwner3: {
+      default: 3,
+    },
+    user: {
+      default: 4,
+    },
 
   },
   networks: {
@@ -107,6 +124,14 @@ const config: HardhatUserConfig = {
           //auto: true,
           //interval: 0
       }
+    },
+    dev: {
+      url: "http://195.88.57.155:8545",
+      accounts,
+      chainId: 1337,
+      live: true,
+      saveDeployments: true,
+//      gasPrice: 5000000000,
     },
   },
   gasReporter: {

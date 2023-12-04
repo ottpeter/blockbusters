@@ -162,6 +162,28 @@ contract DaoContract is IDaoContract {
         // Delegate voting rights
     }
 
+    // Function to create a proposal for registering a role handler
+    function createRegisterRoleHandlerProposal(uint256 role, address handlerAddress, uint256 duration) public {
+        // Function definition as a string
+        string memory functionDefinition = "internalRegisterRoleHandler(uint256,address)";
+
+        // Convert function definition from string to bytes
+        bytes memory functionDefinitionBytes = bytes(functionDefinition);
+
+        // Encode only the parameters
+        bytes memory parameters = abi.encode(role, handlerAddress);
+
+        // Create a CALL type proposal in the IdentityHandler DAO
+        createProposal(ProposalType.CALL, "Register Role Handler", address(this), 0, functionDefinitionBytes, parameters, duration);
+    }
+
+    // Internal function to register a role handler
+    function internalRegisterRoleHandler(uint256 role, address handlerAddress) external {
+        require(msg.sender == address(this), "Unauthorized");
+        require(role > 0, "Must be > 0");
+        roleHandlers[role] = IRoleHandler(handlerAddress);
+    }
+
     // register entityType handler
     function registerRoleHandler(uint256 role, address handlerAddress) external onlyGovernance {
         require(role > 0, "Must be > 0");

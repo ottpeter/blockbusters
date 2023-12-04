@@ -82,6 +82,29 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "role",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "handlerAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
+      }
+    ],
+    "name": "createRegisterRoleHandlerProposal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "daoFactory",
     "outputs": [
@@ -285,6 +308,24 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "role",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "handlerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "internalRegisterRoleHandler",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
