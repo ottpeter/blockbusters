@@ -13,7 +13,7 @@ contract IdentityHandler is DaoContract {
 
     // Constructor
     constructor(address _parentDaoAddress, address[] memory _initialCitizens, address _daoFactory, uint256 _requiredStakeAmount)
-        DaoContract(_parentDaoAddress, _daoFactory) {
+        DaoContract(_parentDaoAddress, _initialCitizens, _daoFactory) {
             requiredStakeAmount = _requiredStakeAmount;
     }
 
@@ -43,7 +43,7 @@ contract IdentityHandler is DaoContract {
     // Internal function to be called by the proposal execution
     function internalAssignRole(address user, uint256 role) external {
         require(msg.sender == address(this), "Unauthorized");
-        parentDao.assignRole(user, role); // Call assignRole on the main DAO
+        DaoContract(parentDao).assignRole(user, role); // Call assignRole on the main DAO
     }
 
     function createRevokeRoleProposal(address user, uint256 role, uint256 duration) public {
@@ -61,7 +61,7 @@ contract IdentityHandler is DaoContract {
     // Internal function to be called by the proposal execution
     function internalRevokeRole(address user, uint256 role) external {
         require(msg.sender == address(this), "Unauthorized");
-        parentDao.revokeRole(user, role); // Call revokeRole on the main DAO
+        DaoContract(parentDao).revokeRole(user, role); // Call revokeRole on the main DAO
     }
 
     // Function to create a proposal for delegating a role type
@@ -91,7 +91,7 @@ contract IdentityHandler is DaoContract {
         if (delegate != address(0) && msg.sender == delegate) {
             // Role type is delegated and the caller is the delegate,
             // proxy the call to the main DAO
-            parentDao.assignRole(entityAddress, role);
+            DaoContract(parentDao).assignRole(entityAddress, role);
         }
         // No action if the role is not delegated or the caller is not the delegate
     }
@@ -102,7 +102,7 @@ contract IdentityHandler is DaoContract {
         if (delegate != address(0) && msg.sender == delegate) {
             // Role type is delegated and the caller is the delegate,
             // proxy the call to the main DAO
-            parentDao.revokeRole(entityAddress, role);
+            DaoContract(parentDao).revokeRole(entityAddress, role);
         }
         // No action if the role is not delegated or the caller is not the delegate
     }
