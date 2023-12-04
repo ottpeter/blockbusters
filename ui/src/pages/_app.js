@@ -10,37 +10,37 @@ import { createTheme } from "src/theme";
 import { createEmotionCache } from "src/utils/create-emotion-cache";
 import "simplebar-react/dist/simplebar.min.css";
 import { useEffect } from "react";
-const { ApiPromise, WsProvider } = require("@polkadot/api");
+import { WagmiConfig, createConfig, configureChains, mainnet } from "wagmi";
+import { publicProvider } from "wagmi/providers/public";
+import { useAccount, useConnect, useEnsName } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
 const clientSideEmotionCache = createEmotionCache();
 
 const SplashScreen = () => null;
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+  [mainnet],
+  [publicProvider()]
+);
 
-async function main() {
-  // Initialise the provider to connect to the local node
-  const provider = new WsProvider("ws://127.0.0.1:9944");
+function Profile() {
+  const { address, isConnected } = useAccount();
+  const { data: ensName } = useEnsName({ address });
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
 
-  // Create the API and wait until ready
-  const api = await ApiPromise.create({ provider });
-
-  // Retrieve the chain & node information information via rpc calls
-  const [chain, nodeName, nodeVersion] = await Promise.all([
-    api.rpc.system.chain(),
-    api.rpc.system.name(),
-    api.rpc.system.version(),
-  ]);
-
-  console.log(`You are connected to chain ${chain} using ${nodeName} v${nodeVersion}`);
+  if (isConnected) return <div>Connected to {ensName ?? address}</div>;
+  return <button onClick={() => connect()}>Connect Wallet</button>;
 }
 
 const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-
-  useEffect(() => {
-    main()
-      .catch(console.error)
-      .finally(() => console.log("exit"));
-  }, []);
+  const config = createConfig({
+    autoConnect: true,
+    publicClient,
+    webSocketPublicClient,
+  });
 
   useNProgress();
 
@@ -49,24 +49,27 @@ const App = (props) => {
   const theme = createTheme();
 
   return (
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <title>Devias Kit</title>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </Head>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <AuthProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <AuthConsumer>
-              {(auth) =>
-                auth.isLoading ? <SplashScreen /> : getLayout(<Component {...pageProps} />)
-              }
-            </AuthConsumer>
-          </ThemeProvider>
-        </AuthProvider>
-      </LocalizationProvider>
-    </CacheProvider>
+    <WagmiConfig config={config}>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <title>Devias Kit</title>
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
+        </Head>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <AuthProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Profile />
+              <AuthConsumer>
+                {(auth) =>
+                  auth.isLoading ? <SplashScreen /> : getLayout(<Component {...pageProps} />)
+                }
+              </AuthConsumer>
+            </ThemeProvider>
+          </AuthProvider>
+        </LocalizationProvider>
+      </CacheProvider>
+    </WagmiConfig>
   );
 };
 
