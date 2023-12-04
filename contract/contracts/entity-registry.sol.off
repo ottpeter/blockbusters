@@ -1,0 +1,51 @@
+pragma solidity ^0.8.0;
+
+interface IEntityTypeHandler {
+
+}
+
+contract EntityRegistryContract {
+    struct Entity {
+        uint256 entityType; // 1 - citizen, 2 - company, ...
+        bytes entityData;
+        // Company details
+    }
+
+    mapping(uint256 => address) public entitiIdToAddress;
+    mapping(address => Entity) public entities;
+
+    uint256 public entityCount;
+    
+    mapping(uint256 => IEntityTypeHandler) public entityTypeHandlers;
+
+    modifier onlyGovernance() {
+        _;
+    }
+
+    // register entityType handler
+    function registerEntityTypeHandler(uint256 propertyType, address handlerAddress) external onlyGovernance {
+        require(propertyType > 0, "Must be > 0");
+        entityTypeHandlers[propertyType] = IEntityTypeHandler(handlerAddress);
+    }
+
+
+    // Functions
+    function registerEntity(address entityAddress, Entity memory entity) public {
+        // Record property ownership / add new property to the register
+        require(entity.entityType != 0, "Property exists");
+        require(address(entityTypeHandlers[entity.entityType]) == msg.sender, "Only type handler");
+        // Register a new business
+    }
+
+    function fileCorporateDocuments(uint256 companyId, string memory document) public {
+        // Submission and verification of documents
+    }
+
+    function conductShareholderVoting(uint256 companyId, uint256 proposalId) public {
+        // Corporate voting process
+    }
+
+    function reportFinancials(uint256 companyId, string memory financialReport) public {
+        // Submit and validate financial reports
+    }
+}
