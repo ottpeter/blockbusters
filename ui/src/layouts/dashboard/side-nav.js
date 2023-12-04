@@ -17,6 +17,7 @@ import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
 import { items } from './config';
 import { SideNavItem } from './side-nav-item';
+import Profile from 'src/components/Profile';
 
 export const SideNav = (props) => {
   const { open, onClose } = props;
@@ -67,18 +68,7 @@ export const SideNav = (props) => {
             }}
           >
             <div>
-              <Typography
-                color="inherit"
-                variant="subtitle1"
-              >
-                Devias
-              </Typography>
-              <Typography
-                color="neutral.400"
-                variant="body2"
-              >
-                Production
-              </Typography>
+              <Profile />
             </div>
             <SvgIcon
               fontSize="small"

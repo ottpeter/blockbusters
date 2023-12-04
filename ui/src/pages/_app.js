@@ -12,8 +12,8 @@ import "simplebar-react/dist/simplebar.min.css";
 import { useEffect } from "react";
 import { WagmiConfig, createConfig, configureChains, mainnet } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { useAccount, useConnect, useEnsName } from "wagmi";
-import { InjectedConnector } from "wagmi/connectors/injected";
+import { SideNav } from "src/layouts/dashboard/side-nav";
+import Profile from "src/components/Profile";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -23,16 +23,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   [publicProvider()]
 );
 
-function Profile() {
-  const { address, isConnected } = useAccount();
-  const { data: ensName } = useEnsName({ address });
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  });
 
-  if (isConnected) return <div>Connected to {ensName ?? address}</div>;
-  return <button onClick={() => connect()}>Connect Wallet</button>;
-}
 
 const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
@@ -56,17 +47,12 @@ const App = (props) => {
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <AuthProvider>
             <ThemeProvider theme={theme}>
               <CssBaseline />
-              <Profile />
-              <AuthConsumer>
-                {(auth) =>
-                  auth.isLoading ? <SplashScreen /> : getLayout(<Component {...pageProps} />)
-                }
-              </AuthConsumer>
+              <SideNav />
+              {/** Needs to be in grid */}
+              <Component {...pageProps} />
             </ThemeProvider>
-          </AuthProvider>
         </LocalizationProvider>
       </CacheProvider>
     </WagmiConfig>
