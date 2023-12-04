@@ -1,28 +1,15 @@
 import Head from 'next/head';
-import { Box, Button, CircularProgress, Container, Stack, SvgIcon, TextField, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import * as Yup from 'yup';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getProposal } from 'src/utils/proposalTools';
 import Loading from 'src/components/Loading';
 import { vote } from 'src/utils/voteOnProposal';
+import ActOnProposal from 'src/components/ActOnProposal';
 
 const now = new Date();
-
-const mockOptionList = [
-    {
-        name: "First Option",
-        index: 1
-    },{
-        name: "Second Option",
-        index: 2
-    },{
-        name: "Third Option",
-        index: 3
-    }
-];
 
 
 const Page = () => {
@@ -40,8 +27,6 @@ const Page = () => {
     setProposal(result);
   }
   
-  const optionList = mockOptionList;
-
   function voteOnOption(optionIndex) {
     console.log("option index: ", optionIndex)
     vote(proposalId, optionIndex);
@@ -88,14 +73,11 @@ const Page = () => {
               </Typography>
             </Stack>
             <Stack spacing={3}>
-            {optionList.map((option) => (
-                <Button 
-                    fullWidth
-                    onClick={() => voteOnOption(option.index)}
-                >
-                    {option.name}
-                </Button>
-            ))}
+            
+              <ActOnProposal proposalAction={true} />
+              
+              <ActOnProposal proposalAction={false} />
+
             </Stack>
           </div>
         </Box>

@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
+import CreateProposal from 'src/components/CreateProposal';
 
 const now = new Date();
 
@@ -115,15 +116,7 @@ const Page = () => {
                   {formik.errors.submit}
                 </Typography>
               )}
-              <Button
-                fullWidth
-                size="large"
-                sx={{ mt: 3 }}
-                type="submit"
-                variant="contained"
-              >
-                Continue
-              </Button>
+              <CreateProposal />
             </form>
           </div>
         </Box>
