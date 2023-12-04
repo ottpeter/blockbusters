@@ -5,8 +5,8 @@ import "./IRoleHandler.sol";
 
 
 contract DaoFactory {
-    function createDao(address[] memory _initialCitizens, address _daoFactory) public returns (address) {
-        DaoContract newDao = new DaoContract(_initialCitizens, _daoFactory);
+    function createDao(address _parent, address[] memory _initialCitizens, address _daoFactory) public returns (address) {
+        DaoContract newDao = new DaoContract(_parent, _initialCitizens, _daoFactory);
         return address(newDao);
     }
 }
@@ -17,6 +17,8 @@ contract DaoContract is IDaoContract {
     mapping(uint256 => uint256) public roleCount;
 
     mapping(uint256 => IRoleHandler) public roleHandlers;
+    
+    address public parentDao;
 
     modifier onlyGovernance() {
         _;
@@ -46,9 +48,10 @@ contract DaoContract is IDaoContract {
     DaoFactory public daoFactory;
     address[] public subDAOs;
     
-    constructor(address[] memory _initialCitizens, address _daoFactory) {
+      constructor(address _parentDao, address[] memory _initialCitizens, address _daoFactory) {
         require(_initialCitizens.length > 0, "At least one initial citizen required");
-
+        parentDao = _parentDao;
+  
         // Assign initial citizens to a role, e.g., role 1
         for (uint i = 0; i < _initialCitizens.length; i++) {
             roles[_initialCitizens[i]][1] = true; // Assuming role 1 is for citizens
@@ -62,8 +65,8 @@ contract DaoContract is IDaoContract {
         string memory description,
         address target,
         uint256 amount,
-        bytes calldata funToCall,
-        bytes calldata data,
+        bytes memory funToCall,
+        bytes memory data,
         uint256 duration
     ) public {
         require(pType == ProposalType.TEXT || pType == ProposalType.CALL || pType == ProposalType.CREATE_SUBDAO, "Invalid proposal type");
@@ -122,7 +125,11 @@ contract DaoContract is IDaoContract {
     function executeCallProposal(Proposal storage proposal) internal returns (bool, bytes memory) {
         require(proposal.target != address(0), "Invalid target address");
 
-        bytes memory payload = abi.encodePacked(proposal.fun, proposal.data);
+        // Hash the function signature string to get the function selector
+        bytes4 funcSelector = bytes4(keccak256(bytes(proposal.fun)));
+        
+        // Concatenate the function selector with the parameters
+        bytes memory payload = abi.encodePacked(funcSelector, proposal.data);
         (bool success, bytes memory result) = proposal.target.call{value: proposal.amount}(payload);
         return (success, result);
     }
@@ -131,10 +138,11 @@ contract DaoContract is IDaoContract {
         require(proposal.pType == ProposalType.CREATE_SUBDAO, "Invalid proposal type");
 
         address[] memory initialCitizens = abi.decode(proposal.data, (address[]));
-        DaoContract newSubDAO = DaoContract(daoFactory.createDao(initialCitizens, address(daoFactory)));
+ 
+        DaoContract newSubDAO = DaoContract(daoFactory.createDao(address(this), initialCitizens, address(daoFactory)));
         subDAOs.push(address(newSubDAO));
 
-        // Additional initialization for newSubDAO if required
+        // Additional    initialization for newSubDAO if required
     }
 
     function delegateVoting(address delegate) public {
