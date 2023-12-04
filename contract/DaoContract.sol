@@ -157,18 +157,18 @@ contract DaoContract is IDaoContract {
 
 
     // Functions
-    function assignRole(address entityAddress, uint256 role) external {
+    function assignRole(address entityAddress, uint256 role) public {
         // Record property ownership / add new property to the register
-        require(address(roleHandlers[role]) == msg.sender, "Only matching role handler handler");
+        require(address(roleHandlers[role]) == msg.sender || msg.sender == address(this), "Only matching role handler handler");
         if (!roles[entityAddress][role]) {
             roleCount[role]++;
             roles[entityAddress][role] = true;
         }
     }
     
-    function revokeRole(address entityAddress, uint256 role) external {
+    function revokeRole(address entityAddress, uint256 role) public {
         // Record property ownership / add new property to the register
-        require(address(roleHandlers[role]) == msg.sender, "Only matching role handler handler");
+        require(address(roleHandlers[role]) == msg.sender || msg.sender == address(this), "Only matching role handler handler");
         if (roles[entityAddress][role]) {
             require(roleCount[role] > 1 || role != 1, "Dont kill the last citizen");
             roleCount[role]--;
