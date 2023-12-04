@@ -19,7 +19,7 @@ export const items = [
     ),
   },
   {
-    title: "Add Citizen",
+    title: "Register",
     path: "/add-citizen",
     icon: (
       <SvgIcon fontSize="small">
@@ -28,8 +28,8 @@ export const items = [
     ),
   },
   {
-    title: "Customers",
-    path: "/customers",
+    title: "Create Proposal",
+    path: "/new-proposal",
     icon: (
       <SvgIcon fontSize="small">
         <UsersIcon />
@@ -37,57 +37,120 @@ export const items = [
     ),
   },
   {
-    title: "Companies",
-    path: "/companies",
+    title: "Proposals",
+    path: "/proposals",
     icon: (
       <SvgIcon fontSize="small">
-        <ShoppingBagIcon />
+        <UsersIcon />
       </SvgIcon>
     ),
   },
   {
-    title: "Account",
-    path: "/account",
+    title: "Profile",
+    path: "/profile",
     icon: (
       <SvgIcon fontSize="small">
-        <UserIcon />
+        <UsersIcon />
       </SvgIcon>
     ),
   },
   {
-    title: "Settings",
-    path: "/settings",
+    title: "Staking",
+    path: "/stakeing",
     icon: (
       <SvgIcon fontSize="small">
-        <CogIcon />
+        <UsersIcon />
       </SvgIcon>
     ),
   },
   {
-    title: "Login",
-    path: "/auth/login",
+    title: "Policy Library",
+    path: "/policy-library",
     icon: (
       <SvgIcon fontSize="small">
-        <LockClosedIcon />
+        <UsersIcon />
       </SvgIcon>
     ),
   },
   {
-    title: "Register",
-    path: "/auth/register",
+    title: "Asset Registry",
+    path: "/asset-registry",
     icon: (
       <SvgIcon fontSize="small">
-        <UserPlusIcon />
+        <UsersIcon />
       </SvgIcon>
     ),
   },
   {
-    title: "Error",
-    path: "/404",
+    title: "Company Registry",
+    path: "/company-registry",
     icon: (
       <SvgIcon fontSize="small">
-        <XCircleIcon />
+        <UsersIcon />
       </SvgIcon>
     ),
   },
+  // {
+  //   title: "Customers",
+  //   path: "/customers",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <UsersIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
+  // {
+  //   title: "Companies",
+  //   path: "/companies",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <ShoppingBagIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
+  // {
+  //   title: "Account",
+  //   path: "/account",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <UserIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
+  // {
+  //   title: "Settings",
+  //   path: "/settings",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <CogIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
+  // {
+  //   title: "Login",
+  //   path: "/auth/login",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <LockClosedIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
+  // {
+  //   title: "Register",
+  //   path: "/auth/register",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <UserPlusIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
+  // {
+  //   title: "Error",
+  //   path: "/404",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <XCircleIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
 ];

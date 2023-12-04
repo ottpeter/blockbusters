@@ -9,10 +9,8 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Divider,
   TextField,
   Stack,
-  Typography,
   Unstable_Grid2 as Grid,
 } from "@mui/material";
 import { useFormik } from "formik";
@@ -59,7 +57,6 @@ const Page = () => {
           <Stack spacing={3}>
             <div>
               <Grid container spacing={3}>
-                <Grid xs={12} md={6} lg={4}></Grid>
                 <Grid xs={12} md={6} lg={8}>
                   <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
                     <Card>
