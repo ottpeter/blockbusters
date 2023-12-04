@@ -1,0 +1,171 @@
+pragma solidity ^0.8.0;
+
+import "./IDaoContract.sol";
+import "./IRoleHandler.sol";
+
+
+contract DaoFactory {
+    function createDao(address[] memory _initialCitizens, address _daoFactory) public returns (address) {
+        DaoContract newDao = new DaoContract(_initialCitizens, _daoFactory);
+        return address(newDao);
+    }
+}
+
+contract DaoContract is IDaoContract {
+    mapping(address => mapping(uint256 => bool)) public roles;
+
+    mapping(uint256 => uint256) public roleCount;
+
+    mapping(uint256 => IRoleHandler) public roleHandlers;
+
+    modifier onlyGovernance() {
+        _;
+    }
+
+    enum ProposalType{NONE, TEXT, CALL, CREATE_SUBDAO}
+
+    struct Proposal {
+        ProposalType pType;
+        string description;
+        address target;
+        uint256 amount;
+        bytes fun;
+        bytes data;
+        uint256 support;
+        uint256 totalVotes;
+        bool executed;
+        uint256 deadline;
+        bool executionSuccess;
+        bytes executionResult;
+        mapping(address => bool) votes;
+    }
+
+    mapping(uint256 => Proposal) public proposals;
+    uint256 public proposalCount;
+    
+    DaoFactory public daoFactory;
+    address[] public subDAOs;
+    
+    constructor(address[] memory _initialCitizens, address _daoFactory) {
+        require(_initialCitizens.length > 0, "At least one initial citizen required");
+
+        // Assign initial citizens to a role, e.g., role 1
+        for (uint i = 0; i < _initialCitizens.length; i++) {
+            roles[_initialCitizens[i]][1] = true; // Assuming role 1 is for citizens
+            roleCount[1]++;
+        }
+        daoFactory = DaoFactory(_daoFactory);
+    }
+
+    function createProposal(
+        ProposalType pType,
+        string memory description,
+        address target,
+        uint256 amount,
+        bytes calldata funToCall,
+        bytes calldata data,
+        uint256 duration
+    ) public {
+        require(pType == ProposalType.TEXT || pType == ProposalType.CALL || pType == ProposalType.CREATE_SUBDAO, "Invalid proposal type");
+        require(pType != ProposalType.CREATE_SUBDAO || target == address(0), "SubDAO proposals must not have a target");
+        Proposal storage proposal = proposals[proposalCount++];
+        proposal.pType = pType;
+        proposal.description = description;
+        proposal.target = target;
+        proposal.amount = amount;
+        proposal.fun = funToCall;
+        proposal.data = data;
+        proposal.deadline = block.timestamp + duration;
+    }
+
+    function voteOnProposal(uint256 proposalId, bool supportVote) public {
+        require(roles[msg.sender][1], "Not authorized to vote");
+        Proposal storage proposal = proposals[proposalId];
+        require(!proposal.executed, "Proposal already executed");
+        require(block.timestamp < proposal.deadline, "Voting period has ended");
+        require(!proposal.votes[msg.sender], "Already voted");
+
+
+        proposal.votes[msg.sender] = true;
+        proposal.totalVotes += 1;
+        if (supportVote) {
+            proposal.support += 1;
+        }
+    }
+
+    function checkProposalPassed(uint256 proposalId) internal view returns (bool) {
+        Proposal storage proposal = proposals[proposalId];
+        uint256 requiredSupport = (roleCount[1] * 66) / 100;
+        return proposal.support >= requiredSupport && proposal.totalVotes - proposal.support <= (roleCount[1] * (100 - 66)) / 100;
+    }
+
+    function executeProposal(uint256 proposalId) public {
+        Proposal storage proposal = proposals[proposalId];
+        require(!proposal.executed, "Proposal already executed");
+        require(block.timestamp < proposal.deadline, "Proposal has expired");
+
+        if (checkProposalPassed(proposalId)) {
+            proposal.executed = true;
+            if (proposal.pType == ProposalType.CALL) {
+                (bool success, bytes memory result) = executeCallProposal(proposal);
+                proposal.executionSuccess = success;
+                proposal.executionResult = result;
+            } else if (proposal.pType == ProposalType.CREATE_SUBDAO) {
+                createSubDAO(proposal);
+            }
+            // Add logic for other types of proposals if needed
+        } else {
+            revert("Proposal did not pass");
+        }
+    }
+
+    function executeCallProposal(Proposal storage proposal) internal returns (bool, bytes memory) {
+        require(proposal.target != address(0), "Invalid target address");
+
+        bytes memory payload = abi.encodePacked(proposal.fun, proposal.data);
+        (bool success, bytes memory result) = proposal.target.call{value: proposal.amount}(payload);
+        return (success, result);
+    }
+ 
+    function createSubDAO(Proposal storage proposal) internal {
+        require(proposal.pType == ProposalType.CREATE_SUBDAO, "Invalid proposal type");
+
+        address[] memory initialCitizens = abi.decode(proposal.data, (address[]));
+        DaoContract newSubDAO = DaoContract(daoFactory.createDao(initialCitizens, address(daoFactory)));
+        subDAOs.push(address(newSubDAO));
+
+        // Additional initialization for newSubDAO if required
+    }
+
+    function delegateVoting(address delegate) public {
+        // Delegate voting rights
+    }
+
+    // register entityType handler
+    function registerRoleHandler(uint256 role, address handlerAddress) external onlyGovernance {
+        require(role > 0, "Must be > 0");
+        roleHandlers[role] = IRoleHandler(handlerAddress);
+    }
+
+
+    // Functions
+    function assignRole(address entityAddress, uint256 role) external {
+        // Record property ownership / add new property to the register
+        require(address(roleHandlers[role]) == msg.sender, "Only matching role handler handler");
+        if (!roles[entityAddress][role]) {
+            roleCount[role]++;
+            roles[entityAddress][role] = true;
+        }
+    }
+    
+    function revokeRole(address entityAddress, uint256 role) external {
+        // Record property ownership / add new property to the register
+        require(address(roleHandlers[role]) == msg.sender, "Only matching role handler handler");
+        if (roles[entityAddress][role]) {
+            require(roleCount[role] > 1 || role != 1, "Dont kill the last citizen");
+            roleCount[role]--;
+            roles[entityAddress][role] = false;
+        }
+    }
+
+}
