@@ -39,8 +39,9 @@ contract DaoContract is IDaoContract {
         uint256 deadline;
         bool executionSuccess;
         bytes executionResult;
-        mapping(address => bool) votes;
     }
+
+    mapping(uint256 => mapping(address => bool)) proposalVotes;
 
     mapping(uint256 => Proposal) public proposals;
     uint256 public proposalCount;
@@ -48,7 +49,7 @@ contract DaoContract is IDaoContract {
     DaoFactory public daoFactory;
     address[] public subDAOs;
     
-      constructor(address _parentDao, address[] memory _initialCitizens, address _daoFactory) {
+    constructor(address _parentDao, address[] memory _initialCitizens, address _daoFactory) {
         require(_initialCitizens.length > 0, "At least one initial citizen required");
         parentDao = _parentDao;
   
@@ -58,6 +59,18 @@ contract DaoContract is IDaoContract {
             roleCount[1]++;
         }
         daoFactory = DaoFactory(_daoFactory);
+    }
+
+    function getProposal(uint256 proposalId) public view returns (Proposal memory proposal) {
+        return proposals[proposalId];
+    }
+    
+    function getProposal(uint256 from, uint256 count) public view returns (Proposal[] memory proposalsOut) {
+        count = (from + count <= proposalCount) ? count :  proposalCount - from;
+        proposalsOut = new Proposal[](count);
+        for (uint i = 0 ; from + i < proposalCount && i < count; i++) {
+            proposalsOut[i] = proposals[from + i];
+        }
     }
 
     function createProposal(
@@ -86,10 +99,10 @@ contract DaoContract is IDaoContract {
         Proposal storage proposal = proposals[proposalId];
         require(!proposal.executed, "Proposal already executed");
         require(block.timestamp < proposal.deadline, "Voting period has ended");
-        require(!proposal.votes[msg.sender], "Already voted");
+        require(!proposalVotes[proposalId][msg.sender], "Already voted");
 
 
-        proposal.votes[msg.sender] = true;
+        proposalVotes[proposalId][msg.sender] = true;
         proposal.totalVotes += 1;
         if (supportVote) {
             proposal.support += 1;
