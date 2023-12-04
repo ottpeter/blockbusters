@@ -23,7 +23,7 @@ export const items = [
     path: "/add-citizen",
     icon: (
       <SvgIcon fontSize="small">
-        <UserIcon />
+        <UserPlusIcon />
       </SvgIcon>
     ),
   },
@@ -32,7 +32,7 @@ export const items = [
     path: "/new-proposal",
     icon: (
       <SvgIcon fontSize="small">
-        <UsersIcon />
+        <UserPlusIcon />
       </SvgIcon>
     ),
   },
@@ -77,16 +77,16 @@ export const items = [
     path: "/asset-registry",
     icon: (
       <SvgIcon fontSize="small">
-        <UsersIcon />
+        <ShoppingBagIcon />
       </SvgIcon>
     ),
   },
   {
     title: "Company Registry",
-    path: "/company-registry",
+    path: "company/company-registry",
     icon: (
       <SvgIcon fontSize="small">
-        <UsersIcon />
+        <ShoppingBagIcon />
       </SvgIcon>
     ),
   },
