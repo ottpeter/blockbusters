@@ -41,7 +41,7 @@ contract DaoContract is IDaoContract {
         bytes executionResult;
     }
 
-    mapping(uint256 => mapping(address => bool)) proposalVotes;
+    mapping(uint256 => mapping(address => bool)) public proposalVotes;
 
     mapping(uint256 => Proposal) public proposals;
     uint256 public proposalCount;
