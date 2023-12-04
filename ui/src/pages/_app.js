@@ -47,12 +47,20 @@ const App = (props) => {
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
+
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <SideNav />
               {/** Needs to be in grid */}
-              <Component {...pageProps} />
+              <div style={{ 
+                marginLeft: "279px",
+                height: "100vh"
+              }}>
+                <Component {...pageProps} />
+
+              </div>
             </ThemeProvider>
+
         </LocalizationProvider>
       </CacheProvider>
     </WagmiConfig>
