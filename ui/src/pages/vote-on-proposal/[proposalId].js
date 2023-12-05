@@ -4,10 +4,8 @@ import * as Yup from 'yup';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getProposal } from 'src/utils/proposalTools';
+import { getProposal, vote } from 'src/utils/proposalTools';
 import Loading from 'src/components/Loading';
-import { vote } from 'src/utils/voteOnProposal';
-import ActOnProposal from 'src/components/ActOnProposal';
 
 const now = new Date();
 
@@ -72,11 +70,25 @@ const Page = () => {
                 {proposal.description}
               </Typography>
             </Stack>
+            <Stack>
+              Vote Count: {proposal.totalVotes}
+            </Stack>
+            <Stack>
+              Voted Yes: {proposal.support}
+            </Stack>
             <Stack spacing={3}>
             
-              <ActOnProposal proposalAction={true} />
-              
-              <ActOnProposal proposalAction={false} />
+              <Button
+                onClick={() => voteOnOption(true)}
+              >
+                {"Yes"}
+              </Button>
+
+              <Button
+                onClick={() => voteOnOption(false)}
+              >
+                {"No"}
+              </Button>
 
             </Stack>
           </div>

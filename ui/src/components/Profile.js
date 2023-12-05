@@ -1,4 +1,4 @@
-import { useAccount, useConnect, useEnsName } from "wagmi";
+import { useAccount, useBalance, useConnect, useEnsName } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { Button } from "@mui/material";
 
@@ -14,6 +14,12 @@ export default function Profile() {
   const { connect } = useConnect({
     connector: new InjectedConnector(),
   });
+
+  const { data, isError, isLoading } = useBalance({
+    address: '0xE970fd7835B6Aa2CBae1Ec30f6b3fa7FeE786E85',
+  })
+
+  console.log("Data: ", data?.formatted)
 
   console.log(address ? shortenAddress(address) : "address");
 

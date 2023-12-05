@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import React from 'react'
 import useDebounce from 'src/utils/useDebounce';
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
-const abi = require('../../../abi/DaoContract.json');
+const abi = require('../../../contract/abi/contracts/DaoContract.sol/DaoContract');
 const DAO_CONTRACT_ADDRESS = '0xF8F6871ACa4529e7B6e1c5D3313070d48306A460';
 
 

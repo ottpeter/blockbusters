@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Head from "next/head";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import {
@@ -15,8 +15,13 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { checkStakeBalance, getMinimumStake, stake } from "src/utils/userTools";
+import { getAddress } from "src/utils/getAddress";
+import { formatEther } from "viem";
 
 const Page = () => {
+  const [address, setAddress] = useState("");
+
   const formik = useFormik({
     initialValues: {
       address: "0x000000000",
@@ -40,6 +45,25 @@ const Page = () => {
       }
     },
   });
+
+  useEffect(() => {
+    addressGetter();
+  }, []);
+
+  async function addressGetter() {
+    const res = await getAddress();
+    setAddress(res);
+  }
+
+  async function startStaking() {
+    checkStakeBalance(address);
+
+    const result = await stake(address, formatEther(100000000000000000000n));
+    // We can stake, we can check minimum stake, we can check the stake amount for a user
+    const minimum = await getMinimumStake();
+    console.log("Minimum: ", minimum)
+  }
+
 
   return (
     <>
@@ -91,6 +115,11 @@ const Page = () => {
                         </Box>
                       </CardContent>
                       <CardActions sx={{ justifyContent: "flex-end" }}>
+                        
+                        <Button onClick={() => startStaking()}>
+                          Stake
+                        </Button>
+                        
                         <Button type="submit" variant="contained">
                           Save citizen
                         </Button>
