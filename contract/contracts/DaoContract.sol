@@ -65,7 +65,7 @@ contract DaoContract is IDaoContract {
         return proposals[proposalId];
     }
     
-    function getProposal(uint256 from, uint256 count) public view returns (Proposal[] memory proposalsOut) {
+    function getProposals(uint256 from, uint256 count) public view returns (Proposal[] memory proposalsOut) {
         count = (from + count <= proposalCount) ? count :  proposalCount - from;
         proposalsOut = new Proposal[](count);
         for (uint i = 0 ; from + i < proposalCount && i < count; i++) {
