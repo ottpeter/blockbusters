@@ -8,25 +8,24 @@ module.exports = async function ({ getNamedAccounts, deployments, getChainId }) 
 
   const daoFactory = (await deployments.get("DaoFactory")).address;
   const daoRoot = (await deployments.get("DaoRoot")).address;
+  const simpleLandHandler = (await deployments.get("SimpleLandHandler")).address;
+  const propertyRegistryContract = (await deployments.get("PropertyRegistryContract")).address;
   
-  const deployResult = await deploy("IdentityHandler", {
-    args: [daoRoot, [config.deployAddresses.daoOwner1], daoFactory, ethers.utils.parseEther("100")],
-    contract: "contracts/IdentityHandler.sol:IdentityHandler",
-    from: deployer,
-    log: true,
-    deterministicDeployment: false,
-  });
   
-  if (deployResult.newlyDeployed) {
-    const identityHandler = (await deployments.get("IdentityHandler")).address;
+  const currentHandler = await read("PropertyRegistryContract", {log: true}, "propertyTypeHandlers", 1);
+  if (currentHandler != simpleLandHandler) {
     await execute(
         "DaoRoot",
         {from: user, log: true},
-        "createRegisterRoleHandlerProposal",
-        1, identityHandler, 300
+        "createProposal",
+        2, "Set land handler council address", propertyRegistryContract, 0,
+        ethers.utils.toUtf8Bytes("registerPropertyTypeHandler(uint256,address)"),
+        ethers.utils.defaultAbiCoder.encode(["uint256", "address"], [1, simpleLandHandler]),
+        300
     );
     await new Promise(r => setTimeout(r, 1000));
     const proposalNo = await read("DaoRoot", {log: true}, "proposalCount");
+    
     await execute(
         "DaoRoot",
         {from: daoOwner1, log: true},
@@ -41,6 +40,7 @@ module.exports = async function ({ getNamedAccounts, deployments, getChainId }) 
         proposalNo - 1, true
     );
     await new Promise(r => setTimeout(r, 1000));
+    
     await execute(
         "DaoRoot",
         {from: user, log: true},
@@ -50,5 +50,5 @@ module.exports = async function ({ getNamedAccounts, deployments, getChainId }) 
   }
 };
 
-module.exports.tags = ["IdentityHandler"];
-module.exports.dependencies = ["DaoRoot"];
+module.exports.tags = ["SetupLandHandler"];
+module.exports.dependencies = ["PropertyRegistryContract", "SimpleLandHandler"];

@@ -47,43 +47,11 @@
             "type": "bytes"
           }
         ],
-        "internalType": "struct PropertyRegistryContract.Property",
+        "internalType": "struct IPropertyRegistryContract.Property",
         "name": "property",
         "type": "tuple"
       }
     ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes",
-        "name": "propertyData",
-        "type": "bytes"
-      }
-    ],
-    "name": "renderProperty",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "landAddress",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "newGod",
-        "type": "address"
-      }
-    ],
-    "name": "setGod",
-    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -117,7 +85,7 @@
             "type": "bytes"
           }
         ],
-        "internalType": "struct PropertyRegistryContract.Property",
+        "internalType": "struct IPropertyRegistryContract.Property",
         "name": "property",
         "type": "tuple"
       },
@@ -147,12 +115,12 @@
             "type": "bytes"
           }
         ],
-        "internalType": "struct PropertyRegistryContract.Property",
+        "internalType": "struct IPropertyRegistryContract.Property",
         "name": "propertyOut",
         "type": "tuple"
       }
     ],
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -185,7 +153,7 @@
             "type": "bytes"
           }
         ],
-        "internalType": "struct PropertyRegistryContract.Property",
+        "internalType": "struct IPropertyRegistryContract.Property",
         "name": "property",
         "type": "tuple"
       },
@@ -215,7 +183,7 @@
             "type": "bytes"
           }
         ],
-        "internalType": "struct PropertyRegistryContract.Property",
+        "internalType": "struct IPropertyRegistryContract.Property",
         "name": "propertyOut",
         "type": "tuple"
       }

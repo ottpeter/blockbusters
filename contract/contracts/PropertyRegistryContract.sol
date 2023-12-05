@@ -1,58 +1,13 @@
 pragma solidity ^0.8.0;
 
-interface IPropertyTypeHandler {
-    function registerProperty(address originalSender, uint256 propertyId, uint256 propertyType, address owner, bytes memory details) external returns (PropertyRegistryContract.Property memory property);
-    function transferOwnership(address originalSender, uint256 propertyId, PropertyRegistryContract.Property memory property, address newOwner) external returns (PropertyRegistryContract.Property memory propertyOut);
-    function updateRegistry(address originalSender, uint256 propertyId, PropertyRegistryContract.Property memory property, bytes memory details) external view returns (PropertyRegistryContract.Property memory propertyOut);
-}
+import "./Ownable.sol";
+import "./IPropertyTypeHandler.sol";
+import "./IPropertyRegistryContract.sol";
 
-contract GodLandHandler {
-    address god;
 
-    function setGod(address newGod) external { god = newGod; }
-
-    function renderProperty(bytes memory propertyData) external pure returns (string memory landAddress){
-        return(abi.decode(propertyData, (string)));
-    }
-
-    function registerProperty(address originalSender, uint256 propertyId, uint256 propertyType, address owner, bytes memory details) external view returns (PropertyRegistryContract.Property memory property) {
-        require(originalSender == god, "Not god");
-        // abi.decode....
-        // do stuff
-        // propertyData = abi.encode(..
-        property.owner = owner;
-        property.propertyData = details;
-    }
-
-    function transferOwnership(address originalSender, uint256 propertyId, PropertyRegistryContract.Property memory property, address newOwner) external view returns (PropertyRegistryContract.Property memory propertyOut) {
-        require(originalSender == property.owner || originalSender == god, "Not  owner or god");
-        // abi.decode....
-        // do stuff
-        // propertyData = abi.encode(..
-        property.owner = newOwner;
-        return property;
-    }
-
-    function updateRegistry(address originalSender, uint256 propertyId, PropertyRegistryContract.Property memory property, bytes memory details) external view returns (PropertyRegistryContract.Property memory propertyOut) {
-        require(originalSender == god /* || == propertymanagement dao */, "Not  owner or god");
-        // abi.decode....
-        // do stuff
-        // propertyData = abi.encode(..
-        property.propertyData = details;
-        return property;
-    }
-}
-
-contract PropertyRegistryContract {
-    struct Property {
-        uint256 propertyType;
-        address owner;
-        bytes propertyData;
-        // Property details
-    }
-
-    modifier onlyGovernance() {
-        _;
+contract PropertyRegistryContract is Ownable, IPropertyRegistryContract {
+    constructor(address newOwner) {
+        _transferOwnership(newOwner);
     }
 
     modifier preventPropertyTypeChange(uint256 propertyId) {
@@ -66,7 +21,7 @@ contract PropertyRegistryContract {
     mapping(uint256 => IPropertyTypeHandler) public propertyTypeHandlers;
 
     // register propertyType handler
-    function registerPropertyTypeHandler(uint256 propertyType, address handlerAddress) external onlyGovernance {
+    function registerPropertyTypeHandler(uint256 propertyType, address handlerAddress) external onlyOwner {
         require(propertyType > 0, "Must be > 0");
         propertyTypeHandlers[propertyType] = IPropertyTypeHandler(handlerAddress);
     }

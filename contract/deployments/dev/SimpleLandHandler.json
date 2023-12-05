@@ -1,0 +1,293 @@
+{
+  "address": "0x31945F0EF3e60eC0262F2d6fF1d4FB57729e920e",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "originalSender",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "propertyId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "propertyType",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "details",
+          "type": "bytes"
+        }
+      ],
+      "name": "registerProperty",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "propertyType",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "propertyData",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct IPropertyRegistryContract.Property",
+          "name": "property",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "propertyData",
+          "type": "bytes"
+        }
+      ],
+      "name": "renderProperty",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "landAddress",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "originalSender",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "propertyId",
+          "type": "uint256"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "propertyType",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "propertyData",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct IPropertyRegistryContract.Property",
+          "name": "property",
+          "type": "tuple"
+        },
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "propertyType",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "propertyData",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct IPropertyRegistryContract.Property",
+          "name": "propertyOut",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "originalSender",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "propertyId",
+          "type": "uint256"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "propertyType",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "propertyData",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct IPropertyRegistryContract.Property",
+          "name": "property",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes",
+          "name": "details",
+          "type": "bytes"
+        }
+      ],
+      "name": "updateRegistry",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "propertyType",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "propertyData",
+              "type": "bytes"
+            }
+          ],
+          "internalType": "struct IPropertyRegistryContract.Property",
+          "name": "propertyOut",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x34d9354e2607509e2f1fe6e5997ed35a10323062f43ff4cddee62aa9ad2ae763",
+  "receipt": {
+    "to": null,
+    "from": "0x4293f83331A21C13621D77e1344bE08Ab046472F",
+    "contractAddress": "0x31945F0EF3e60eC0262F2d6fF1d4FB57729e920e",
+    "transactionIndex": 0,
+    "gasUsed": "604353",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x98f117439e4577a821303d7b5767b922e4b3c78f7703fa614f543ab4dcbe53d5",
+    "transactionHash": "0x34d9354e2607509e2f1fe6e5997ed35a10323062f43ff4cddee62aa9ad2ae763",
+    "logs": [],
+    "blockNumber": 11,
+    "cumulativeGasUsed": "604353",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "593018e2cce81fc1fb66bedc48e3099f",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.10+commit.fc410830\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"originalSender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"propertyId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"propertyType\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"details\",\"type\":\"bytes\"}],\"name\":\"registerProperty\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"propertyType\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"propertyData\",\"type\":\"bytes\"}],\"internalType\":\"struct IPropertyRegistryContract.Property\",\"name\":\"property\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"propertyData\",\"type\":\"bytes\"}],\"name\":\"renderProperty\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"landAddress\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"originalSender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"propertyId\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"propertyType\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"propertyData\",\"type\":\"bytes\"}],\"internalType\":\"struct IPropertyRegistryContract.Property\",\"name\":\"property\",\"type\":\"tuple\"},{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"propertyType\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"propertyData\",\"type\":\"bytes\"}],\"internalType\":\"struct IPropertyRegistryContract.Property\",\"name\":\"propertyOut\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"originalSender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"propertyId\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"uint256\",\"name\":\"propertyType\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"propertyData\",\"type\":\"bytes\"}],\"internalType\":\"struct IPropertyRegistryContract.Property\",\"name\":\"property\",\"type\":\"tuple\"},{\"internalType\":\"bytes\",\"name\":\"details\",\"type\":\"bytes\"}],\"name\":\"updateRegistry\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"propertyType\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"propertyData\",\"type\":\"bytes\"}],\"internalType\":\"struct IPropertyRegistryContract.Property\",\"name\":\"propertyOut\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/SimpleLandHandler.sol\":\"SimpleLandHandler\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200000},\"remappings\":[]},\"sources\":{\"contracts/IPropertyRegistryContract.sol\":{\"content\":\"pragma solidity ^0.8.0;\\n\\ninterface IPropertyRegistryContract {\\n    struct Property {\\n        uint256 propertyType;\\n        address owner;\\n        bytes propertyData;\\n        // Property details\\n    }\\n}\\n\",\"keccak256\":\"0x7a2fcea424828e47184cb7e2e55892f358cf57f53424372b7121034275eb2a22\"},\"contracts/IPropertyTypeHandler.sol\":{\"content\":\"pragma solidity ^0.8.0;\\n\\nimport \\\"./PropertyRegistryContract.sol\\\";\\n\\ninterface IPropertyTypeHandler {\\n    function registerProperty(address originalSender, uint256 propertyId, uint256 propertyType, address owner, bytes memory details) external returns (PropertyRegistryContract.Property memory property);\\n    function transferOwnership(address originalSender, uint256 propertyId, PropertyRegistryContract.Property memory property, address newOwner) external returns (PropertyRegistryContract.Property memory propertyOut);\\n    function updateRegistry(address originalSender, uint256 propertyId, PropertyRegistryContract.Property memory property, bytes memory details) external view returns (PropertyRegistryContract.Property memory propertyOut);\\n}\",\"keccak256\":\"0x43bf48547eddb6f2ec66e418fee65fa5c95be06d0827568ac690186937aa3137\"},\"contracts/Ownable.sol\":{\"content\":\"pragma solidity ^0.8.0;\\r\\n\\r\\ncontract Ownable {\\r\\n    address public owner;\\r\\n    \\r\\n    constructor() {\\r\\n        owner = msg.sender;\\r\\n    }\\r\\n\\r\\n    modifier onlyOwner {\\r\\n        require(msg.sender == owner, \\\"Not owner\\\");\\r\\n        _;\\r\\n    }\\r\\n\\r\\n    function transferOwnership(address newOwner) public onlyOwner {\\r\\n        owner = newOwner;\\r\\n    }\\r\\n\\r\\n    function _transferOwnership(address newOwner) internal {\\r\\n        owner = newOwner;\\r\\n    }\\r\\n}\",\"keccak256\":\"0x7567535c5c52c841569e6ec165092a41990feaedd296226b750f76b51d650423\"},\"contracts/PropertyRegistryContract.sol\":{\"content\":\"pragma solidity ^0.8.0;\\n\\nimport \\\"./Ownable.sol\\\";\\nimport \\\"./IPropertyTypeHandler.sol\\\";\\nimport \\\"./IPropertyRegistryContract.sol\\\";\\n\\n\\ncontract PropertyRegistryContract is Ownable, IPropertyRegistryContract {\\n    constructor(address newOwner) {\\n        _transferOwnership(newOwner);\\n    }\\n\\n    modifier preventPropertyTypeChange(uint256 propertyId) {\\n        uint256 propertyType = properties[propertyId].propertyType;\\n        _;\\n        require(properties[propertyId].propertyType == propertyType, \\\"Handler changed propertyId\\\");\\n    }\\n\\n    mapping(uint256 => Property) public properties;\\n\\n    mapping(uint256 => IPropertyTypeHandler) public propertyTypeHandlers;\\n\\n    // register propertyType handler\\n    function registerPropertyTypeHandler(uint256 propertyType, address handlerAddress) external onlyOwner {\\n        require(propertyType > 0, \\\"Must be > 0\\\");\\n        propertyTypeHandlers[propertyType] = IPropertyTypeHandler(handlerAddress);\\n    }\\n\\n    // Functions\\n    function registerProperty(uint256 propertyId, uint256 propertyType, address owner, bytes memory details) public {\\n        // Record property ownership / add new property to the register\\n        require(properties[propertyId].propertyType == 0, \\\"Property exists\\\");\\n        require(address(propertyTypeHandlers[propertyType]) != address(0), \\\"Unknown property type\\\");\\n        properties[propertyId] = propertyTypeHandlers[propertyType].registerProperty(msg.sender, propertyId, propertyType, owner, details);\\n        // ensure type\\n        properties[propertyId].propertyType = propertyType;\\n    }\\n\\n    function transferOwnership(uint256 propertyId, address newOwner) preventPropertyTypeChange(propertyId) public {\\n        // Transfer property rights\\n        require(properties[propertyId].propertyType != 0, \\\"Property does not exist\\\");\\n        properties[propertyId] = propertyTypeHandlers[properties[propertyId].propertyType].transferOwnership(msg.sender, propertyId, properties[propertyId], newOwner);\\n    }\\n\\n    function updateRegistry(uint256 propertyId, bytes memory newDetails) public preventPropertyTypeChange(propertyId) {\\n        // Update property details\\n        require(properties[propertyId].propertyType != 0, \\\"Property does not exist\\\");\\n        properties[propertyId] = propertyTypeHandlers[properties[propertyId].propertyType].updateRegistry(msg.sender, propertyId, properties[propertyId], newDetails);\\n    }\\n\\n    function verifyOwnership(uint256 propertyId) public view preventPropertyTypeChange(propertyId) returns (address) {\\n        // Verify property claims\\n        return properties[propertyId].owner;\\n    }\\n}\\n\",\"keccak256\":\"0x2088532c0d42e43b655b385735d0dd527ccadbe361416923f421e9a6b4291475\"},\"contracts/SimpleLandHandler.sol\":{\"content\":\"pragma solidity ^0.8.0;\\n\\nimport \\\"./Ownable.sol\\\";\\nimport \\\"./IPropertyTypeHandler.sol\\\";\\n\\ncontract SimpleLandHandler is Ownable, IPropertyTypeHandler {\\n\\n    function renderProperty(bytes memory propertyData) external pure returns (string memory landAddress){\\n        return(abi.decode(propertyData, (string)));\\n    }\\n\\n    function registerProperty(address originalSender, uint256 propertyId, uint256 propertyType, address owner, bytes memory details) external view returns (PropertyRegistryContract.Property memory property) {\\n        require(originalSender == owner, \\\"Not admin\\\");\\n        // abi.decode....\\n        // do stuff\\n        // propertyData = abi.encode(..\\n        property.owner = owner;\\n        property.propertyData = details;\\n    }\\n\\n    function transferOwnership(address originalSender, uint256 propertyId, PropertyRegistryContract.Property memory property, address newOwner) external view returns (PropertyRegistryContract.Property memory propertyOut) {\\n        require(originalSender == property.owner || originalSender == owner, \\\"Not owner or admin\\\");\\n        // abi.decode....\\n        // do stuff\\n        // propertyData = abi.encode(..\\n        property.owner = newOwner;\\n        return property;\\n    }\\n\\n    function updateRegistry(address originalSender, uint256 propertyId, PropertyRegistryContract.Property memory property, bytes memory details) external view returns (PropertyRegistryContract.Property memory propertyOut) {\\n        require(originalSender == owner /* || == propertymanagement dao */, \\\"Not admin\\\");\\n        // abi.decode....\\n        // do stuff\\n        // propertyData = abi.encode(..\\n        property.propertyData = details;\\n        return property;\\n    }\\n}\\n\",\"keccak256\":\"0xcd110aad7abf4d9477dd7774f14ea32953e90b306441fddbd7ac96cec9c37b35\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50600080546001600160a01b031916331790556109a4806100326000396000f3fe608060405234801561001057600080fd5b50600436106100725760003560e01c80638c8b6f67116100505780638c8b6f67146100d35780638da5cb5b146100e6578063f2fde38b1461012b57600080fd5b80630c033ca9146100775780633a729f46146100a05780636a065a3e146100b3575b600080fd5b61008a61008536600461066e565b610140565b6040516100979190610766565b60405180910390f35b61008a6100ae3660046107b3565b6101f1565b6100c66100c136600461081b565b6102ed565b6040516100979190610850565b61008a6100e136600461086a565b610309565b6000546101069073ffffffffffffffffffffffffffffffffffffffff1681565b60405173ffffffffffffffffffffffffffffffffffffffff9091168152602001610097565b61013e6101393660046108dc565b6103e3565b005b6040805160608082018352600080835260208301529181019190915260005473ffffffffffffffffffffffffffffffffffffffff8681169116146101e5576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152600960248201527f4e6f742061646d696e000000000000000000000000000000000000000000000060448201526064015b60405180910390fd5b50604082015292915050565b60408051606080820183526000808352602083015291810191909152826020015173ffffffffffffffffffffffffffffffffffffffff168573ffffffffffffffffffffffffffffffffffffffff161480610265575060005473ffffffffffffffffffffffffffffffffffffffff8681169116145b6102cb576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601260248201527f4e6f74206f776e6572206f722061646d696e000000000000000000000000000060448201526064016101dc565b5073ffffffffffffffffffffffffffffffffffffffff16602082015292915050565b60608180602001905181019061030391906108f7565b92915050565b604080516060808201835260008083526020830152918101919091528273ffffffffffffffffffffffffffffffffffffffff168673ffffffffffffffffffffffffffffffffffffffff16146103ba576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152600960248201527f4e6f742061646d696e000000000000000000000000000000000000000000000060448201526064016101dc565b73ffffffffffffffffffffffffffffffffffffffff909216602083015260408201529392505050565b60005473ffffffffffffffffffffffffffffffffffffffff163314610464576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152600960248201527f4e6f74206f776e6572000000000000000000000000000000000000000000000060448201526064016101dc565b600080547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff92909216919091179055565b803573ffffffffffffffffffffffffffffffffffffffff811681146104cf57600080fd5b919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b604051601f82017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe016810167ffffffffffffffff8111828210171561054a5761054a6104d4565b604052919050565b600067ffffffffffffffff82111561056c5761056c6104d4565b50601f017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe01660200190565b600082601f8301126105a957600080fd5b81356105bc6105b782610552565b610503565b8181528460208386010111156105d157600080fd5b816020850160208301376000918101602001919091529392505050565b60006060828403121561060057600080fd5b6040516060810167ffffffffffffffff8282108183111715610624576106246104d4565b816040528293508435835261063b602086016104ab565b6020840152604085013591508082111561065457600080fd5b5061066185828601610598565b6040830152505092915050565b6000806000806080858703121561068457600080fd5b61068d856104ab565b935060208501359250604085013567ffffffffffffffff808211156106b157600080fd5b6106bd888389016105ee565b935060608701359150808211156106d357600080fd5b506106e087828801610598565b91505092959194509250565b60005b838110156107075781810151838201526020016106ef565b83811115610716576000848401525b50505050565b600081518084526107348160208601602086016106ec565b601f017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0169290920160200192915050565b602081528151602082015273ffffffffffffffffffffffffffffffffffffffff6020830151166040820152600060408301516060808401526107ab608084018261071c565b949350505050565b600080600080608085870312156107c957600080fd5b6107d2856104ab565b935060208501359250604085013567ffffffffffffffff8111156107f557600080fd5b610801878288016105ee565b925050610810606086016104ab565b905092959194509250565b60006020828403121561082d57600080fd5b813567ffffffffffffffff81111561084457600080fd5b6107ab84828501610598565b602081526000610863602083018461071c565b9392505050565b600080600080600060a0868803121561088257600080fd5b61088b866104ab565b945060208601359350604086013592506108a7606087016104ab565b9150608086013567ffffffffffffffff8111156108c357600080fd5b6108cf88828901610598565b9150509295509295909350565b6000602082840312156108ee57600080fd5b610863826104ab565b60006020828403121561090957600080fd5b815167ffffffffffffffff81111561092057600080fd5b8201601f8101841361093157600080fd5b805161093f6105b782610552565b81815285602083850101111561095457600080fd5b6109658260208301602086016106ec565b9594505050505056fea2646970667358221220c9540dc218b6876e077f7db37abf556cb265a500bd091047519827c189fc909e64736f6c634300080a0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100725760003560e01c80638c8b6f67116100505780638c8b6f67146100d35780638da5cb5b146100e6578063f2fde38b1461012b57600080fd5b80630c033ca9146100775780633a729f46146100a05780636a065a3e146100b3575b600080fd5b61008a61008536600461066e565b610140565b6040516100979190610766565b60405180910390f35b61008a6100ae3660046107b3565b6101f1565b6100c66100c136600461081b565b6102ed565b6040516100979190610850565b61008a6100e136600461086a565b610309565b6000546101069073ffffffffffffffffffffffffffffffffffffffff1681565b60405173ffffffffffffffffffffffffffffffffffffffff9091168152602001610097565b61013e6101393660046108dc565b6103e3565b005b6040805160608082018352600080835260208301529181019190915260005473ffffffffffffffffffffffffffffffffffffffff8681169116146101e5576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152600960248201527f4e6f742061646d696e000000000000000000000000000000000000000000000060448201526064015b60405180910390fd5b50604082015292915050565b60408051606080820183526000808352602083015291810191909152826020015173ffffffffffffffffffffffffffffffffffffffff168573ffffffffffffffffffffffffffffffffffffffff161480610265575060005473ffffffffffffffffffffffffffffffffffffffff8681169116145b6102cb576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601260248201527f4e6f74206f776e6572206f722061646d696e000000000000000000000000000060448201526064016101dc565b5073ffffffffffffffffffffffffffffffffffffffff16602082015292915050565b60608180602001905181019061030391906108f7565b92915050565b604080516060808201835260008083526020830152918101919091528273ffffffffffffffffffffffffffffffffffffffff168673ffffffffffffffffffffffffffffffffffffffff16146103ba576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152600960248201527f4e6f742061646d696e000000000000000000000000000000000000000000000060448201526064016101dc565b73ffffffffffffffffffffffffffffffffffffffff909216602083015260408201529392505050565b60005473ffffffffffffffffffffffffffffffffffffffff163314610464576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152600960248201527f4e6f74206f776e6572000000000000000000000000000000000000000000000060448201526064016101dc565b600080547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff92909216919091179055565b803573ffffffffffffffffffffffffffffffffffffffff811681146104cf57600080fd5b919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b604051601f82017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe016810167ffffffffffffffff8111828210171561054a5761054a6104d4565b604052919050565b600067ffffffffffffffff82111561056c5761056c6104d4565b50601f017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe01660200190565b600082601f8301126105a957600080fd5b81356105bc6105b782610552565b610503565b8181528460208386010111156105d157600080fd5b816020850160208301376000918101602001919091529392505050565b60006060828403121561060057600080fd5b6040516060810167ffffffffffffffff8282108183111715610624576106246104d4565b816040528293508435835261063b602086016104ab565b6020840152604085013591508082111561065457600080fd5b5061066185828601610598565b6040830152505092915050565b6000806000806080858703121561068457600080fd5b61068d856104ab565b935060208501359250604085013567ffffffffffffffff808211156106b157600080fd5b6106bd888389016105ee565b935060608701359150808211156106d357600080fd5b506106e087828801610598565b91505092959194509250565b60005b838110156107075781810151838201526020016106ef565b83811115610716576000848401525b50505050565b600081518084526107348160208601602086016106ec565b601f017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0169290920160200192915050565b602081528151602082015273ffffffffffffffffffffffffffffffffffffffff6020830151166040820152600060408301516060808401526107ab608084018261071c565b949350505050565b600080600080608085870312156107c957600080fd5b6107d2856104ab565b935060208501359250604085013567ffffffffffffffff8111156107f557600080fd5b610801878288016105ee565b925050610810606086016104ab565b905092959194509250565b60006020828403121561082d57600080fd5b813567ffffffffffffffff81111561084457600080fd5b6107ab84828501610598565b602081526000610863602083018461071c565b9392505050565b600080600080600060a0868803121561088257600080fd5b61088b866104ab565b945060208601359350604086013592506108a7606087016104ab565b9150608086013567ffffffffffffffff8111156108c357600080fd5b6108cf88828901610598565b9150509295509295909350565b6000602082840312156108ee57600080fd5b610863826104ab565b60006020828403121561090957600080fd5b815167ffffffffffffffff81111561092057600080fd5b8201601f8101841361093157600080fd5b805161093f6105b782610552565b81815285602083850101111561095457600080fd5b6109658260208301602086016106ec565b9594505050505056fea2646970667358221220c9540dc218b6876e077f7db37abf556cb265a500bd091047519827c189fc909e64736f6c634300080a0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 63,
+        "contract": "contracts/SimpleLandHandler.sol:SimpleLandHandler",
+        "label": "owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      }
+    }
+  }
+}
