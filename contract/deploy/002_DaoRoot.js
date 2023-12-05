@@ -9,7 +9,7 @@ module.exports = async function ({ getNamedAccounts, deployments, getChainId }) 
   const daoFactory = (await deployments.get("DaoFactory")).address;
 
   const deployResult = await deploy("DaoRoot", {
-    args: [ethers.constants.AddressZero, [config.deployAddresses.daoOwner1, config.deployAddresses.daoOwner2, config.deployAddresses.daoOwner3], daoFactory],
+    args: [ethers.constants.AddressZero, [config.deployAddresses.daoOwner1, config.deployAddresses.daoOwner2, config.deployAddresses.daoOwner3], false, daoFactory],
     contract: "contracts/DaoContract.sol:DaoContract",
     from: deployer,
     log: true,

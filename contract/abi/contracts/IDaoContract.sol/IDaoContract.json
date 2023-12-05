@@ -28,9 +28,14 @@
         "internalType": "address",
         "name": "handlerAddress",
         "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
       }
     ],
-    "name": "registerRoleHandler",
+    "name": "createRegisterRoleHandlerProposal",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

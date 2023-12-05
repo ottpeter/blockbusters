@@ -12,6 +12,11 @@
         "type": "address[]"
       },
       {
+        "internalType": "bool",
+        "name": "_councilMode",
+        "type": "bool"
+      },
+      {
         "internalType": "address",
         "name": "_daoFactory",
         "type": "address"

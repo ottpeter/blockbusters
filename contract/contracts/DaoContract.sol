@@ -5,8 +5,8 @@ import "./IRoleHandler.sol";
 
 
 contract DaoFactory {
-    function createDao(address _parent, address[] memory _initialCitizens, address _daoFactory) public returns (address) {
-        DaoContract newDao = new DaoContract(_parent, _initialCitizens, _daoFactory);
+    function createDao(address _parent, address[] memory _initialCitizens, bool _councilMode, address _daoFactory) public returns (address) {
+        DaoContract newDao = new DaoContract(_parent, _initialCitizens, _councilMode, _daoFactory);
         return address(newDao);
     }
 }
@@ -48,11 +48,14 @@ contract DaoContract is IDaoContract {
     
     DaoFactory public daoFactory;
     address[] public subDAOs;
-    
-    constructor(address _parentDao, address[] memory _initialCitizens, address _daoFactory) {
+
+    bool public councilMode;
+
+    constructor(address _parentDao, address[] memory _initialCitizens, bool _councilMode, address _daoFactory) {
         require(_initialCitizens.length > 0, "At least one initial citizen required");
         parentDao = _parentDao;
-  
+        councilMode = _councilMode;
+
         // Assign initial citizens to a role, e.g., role 1
         for (uint i = 0; i < _initialCitizens.length; i++) {
             roles[_initialCitizens[i]][1] = true; // Assuming role 1 is for citizens
@@ -65,11 +68,23 @@ contract DaoContract is IDaoContract {
         return proposals[proposalId];
     }
     
+    function subDAOCount() public view returns (uint256 count) {
+        return subDAOs.length;
+    }
+
     function getProposals(uint256 from, uint256 count) public view returns (Proposal[] memory proposalsOut) {
         count = (from + count <= proposalCount) ? count :  proposalCount - from;
         proposalsOut = new Proposal[](count);
         for (uint i = 0 ; from + i < proposalCount && i < count; i++) {
             proposalsOut[i] = proposals[from + i];
+        }
+    }
+    
+    function getSubDAOs(uint256 from, uint256 count) public view returns (address[] memory subDAOsOut) {
+        count = (from + count <= subDAOs.length) ? count :  subDAOs.length - from;
+        subDAOsOut = new address[](count);
+        for (uint i = 0 ; from + i < subDAOs.length && i < count; i++) {
+            subDAOsOut[i] = subDAOs[from + i];
         }
     }
 
@@ -147,12 +162,20 @@ contract DaoContract is IDaoContract {
         return (success, result);
     }
  
+    // Function to create a proposal for registering a role handler
+    function createCreateSubDAOProposal(address[] memory citizens, bool isCouncil, uint256 duration) public {
+        bytes memory parameters = abi.encode(citizens, isCouncil);
+
+        // Create a CALL type proposal in the IdentityHandler DAO
+        createProposal(ProposalType.CREATE_SUBDAO, "Register Role Handler", address(this), 0, "", parameters, duration);
+    }
+
     function createSubDAO(Proposal storage proposal) internal {
         require(proposal.pType == ProposalType.CREATE_SUBDAO, "Invalid proposal type");
 
-        address[] memory initialCitizens = abi.decode(proposal.data, (address[]));
+        (address[] memory initialCitizens, bool isCouncil) = abi.decode(proposal.data, (address[],bool));
  
-        DaoContract newSubDAO = DaoContract(daoFactory.createDao(address(this), initialCitizens, address(daoFactory)));
+        DaoContract newSubDAO = DaoContract(daoFactory.createDao(address(this), initialCitizens, isCouncil, address(daoFactory)));
         subDAOs.push(address(newSubDAO));
 
         // Additional    initialization for newSubDAO if required
@@ -177,6 +200,7 @@ contract DaoContract is IDaoContract {
         createProposal(ProposalType.CALL, "Register Role Handler", address(this), 0, functionDefinitionBytes, parameters, duration);
     }
 
+
     // Internal function to register a role handler
     function internalRegisterRoleHandler(uint256 role, address handlerAddress) external {
         require(msg.sender == address(this), "Unauthorized");
@@ -184,26 +208,55 @@ contract DaoContract is IDaoContract {
         roleHandlers[role] = IRoleHandler(handlerAddress);
     }
 
-    // register entityType handler
-    function registerRoleHandler(uint256 role, address handlerAddress) external onlyGovernance {
-        require(role > 0, "Must be > 0");
-        roleHandlers[role] = IRoleHandler(handlerAddress);
-    }
+    // Function to create a proposal for assignig a role
+    function createAssignRoleProposal(uint256 role, address handlerAddress, uint256 duration) public {
+        // Function definition as a string
+        string memory functionDefinition = "assignRole(uint256,address)";
 
+        // Convert function definition from string to bytes
+        bytes memory functionDefinitionBytes = bytes(functionDefinition);
+
+        // Encode only the parameters
+        bytes memory parameters = abi.encode(handlerAddress, role);
+
+        // Create a CALL type proposal in the IdentityHandler DAO
+        createProposal(ProposalType.CALL, "Assign role", address(this), 0, functionDefinitionBytes, parameters, duration);
+    }
 
     // Functions
     function assignRole(address entityAddress, uint256 role) public {
-        // Record property ownership / add new property to the register
-        require(address(roleHandlers[role]) == msg.sender || msg.sender == address(this), "Only matching role handler handler");
+        if (councilMode) {
+            require(msg.sender == parentDao, "Only parent dao can update roles in council");
+        } else {
+            require(address(roleHandlers[role]) == msg.sender || msg.sender == address(this), "Only self or matching role handler can update roles in DAO");
+        }
         if (!roles[entityAddress][role]) {
             roleCount[role]++;
             roles[entityAddress][role] = true;
         }
     }
     
+    // Function to create a proposal for assignig a role
+    function createRoleProposal(uint256 role, address handlerAddress, uint256 duration) public {
+        // Function definition as a string
+        string memory functionDefinition = "revokeRole(uint256,address)";
+
+        // Convert function definition from string to bytes
+        bytes memory functionDefinitionBytes = bytes(functionDefinition);
+
+        // Encode only the parameters
+        bytes memory parameters = abi.encode(handlerAddress, role);
+
+        // Create a CALL type proposal in the IdentityHandler DAO
+        createProposal(ProposalType.CALL, "Revoke role", address(this), 0, functionDefinitionBytes, parameters, duration);
+    }
+
     function revokeRole(address entityAddress, uint256 role) public {
-        // Record property ownership / add new property to the register
-        require(address(roleHandlers[role]) == msg.sender || msg.sender == address(this), "Only matching role handler handler");
+        if (councilMode) {
+            require(msg.sender == parentDao, "Only parent dao can update roles in council");
+        } else {
+            require(address(roleHandlers[role]) == msg.sender || msg.sender == address(this), "Only self or matching role handler can update roles in DAO");
+        }
         if (roles[entityAddress][role]) {
             require(roleCount[role] > 1 || role != 1, "Dont kill the last citizen");
             roleCount[role]--;

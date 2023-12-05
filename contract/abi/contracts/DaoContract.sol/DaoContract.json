@@ -12,6 +12,11 @@
         "type": "address[]"
       },
       {
+        "internalType": "bool",
+        "name": "_councilMode",
+        "type": "bool"
+      },
+      {
         "internalType": "address",
         "name": "_daoFactory",
         "type": "address"
@@ -34,6 +39,65 @@
       }
     ],
     "name": "assignRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "councilMode",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "role",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "handlerAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
+      }
+    ],
+    "name": "createAssignRoleProposal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "citizens",
+        "type": "address[]"
+      },
+      {
+        "internalType": "bool",
+        "name": "isCouncil",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
+      }
+    ],
+    "name": "createCreateSubDAOProposal",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -100,6 +164,29 @@
       }
     ],
     "name": "createRegisterRoleHandlerProposal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "role",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "handlerAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
+      }
+    ],
+    "name": "createRoleProposal",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -314,6 +401,30 @@
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "from",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
+      }
+    ],
+    "name": "getSubDAOs",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "subDAOsOut",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
         "name": "role",
         "type": "uint256"
       },
@@ -455,24 +566,6 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "role",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "handlerAddress",
-        "type": "address"
-      }
-    ],
-    "name": "registerRoleHandler",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address",
         "name": "entityAddress",
         "type": "address"
@@ -545,6 +638,19 @@
         "internalType": "bool",
         "name": "",
         "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "subDAOCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "count",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",

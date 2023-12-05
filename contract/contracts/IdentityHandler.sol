@@ -13,7 +13,7 @@ contract IdentityHandler is DaoContract {
 
     // Constructor
     constructor(address _parentDaoAddress, address[] memory _initialCitizens, address _daoFactory, uint256 _requiredStakeAmount)
-        DaoContract(_parentDaoAddress, _initialCitizens, _daoFactory) {
+        DaoContract(_parentDaoAddress, _initialCitizens, false, _daoFactory) {
             requiredStakeAmount = _requiredStakeAmount;
     }
 
@@ -25,9 +25,9 @@ contract IdentityHandler is DaoContract {
     }
 
   // Function to create a proposal for assigning a role
-    function createAssignRoleProposal(address user, uint256 role, uint256 duration) public {
+    function createAssignMainDaoRoleProposal(address user, uint256 role, uint256 duration) public {
         // Function definition as a string
-        string memory functionDefinition = "internalAssignRole(address,uint256)";
+        string memory functionDefinition = "internalAssignMainDaoRole(address,uint256)";
 
         // Convert function definition from string to bytes
         bytes memory functionDefinitionBytes = bytes(functionDefinition);
@@ -41,14 +41,14 @@ contract IdentityHandler is DaoContract {
 
 
     // Internal function to be called by the proposal execution
-    function internalAssignRole(address user, uint256 role) external {
+    function internalAssignMainDaoRole(address user, uint256 role) external {
         require(msg.sender == address(this), "Unauthorized");
         DaoContract(parentDao).assignRole(user, role); // Call assignRole on the main DAO
     }
 
-    function createRevokeRoleProposal(address user, uint256 role, uint256 duration) public {
+    function createRevokeMainDaoRoleProposal(address user, uint256 role, uint256 duration) public {
         // Function definition as a string
-        string memory functionDefinition = "internalRevokeRole(address,uint256)";
+        string memory functionDefinition = "internalRevokeMainDaoRole(address,uint256)";
 
         // Encode only the parameters
         bytes memory parameters = abi.encode(user, role);
@@ -59,15 +59,15 @@ contract IdentityHandler is DaoContract {
 
 
     // Internal function to be called by the proposal execution
-    function internalRevokeRole(address user, uint256 role) external {
+    function internalRevokeMainDaoRole(address user, uint256 role) external {
         require(msg.sender == address(this), "Unauthorized");
         DaoContract(parentDao).revokeRole(user, role); // Call revokeRole on the main DAO
     }
 
     // Function to create a proposal for delegating a role type
-    function createDelegateRoleTypeProposal(uint256 roleType, address delegate, uint256 duration) public {
+    function createDelegateMainDaoRoleTypeProposal(uint256 roleType, address delegate, uint256 duration) public {
         // Function definition as a string
-        string memory functionDefinition = "internalDelegateRoleType(uint256,address)";
+        string memory functionDefinition = "internalDelegateMainDaoRoleType(uint256,address)";
 
         // Convert function definition from string to bytes
         bytes memory functionDefinitionBytes = bytes(functionDefinition);
@@ -80,13 +80,13 @@ contract IdentityHandler is DaoContract {
     }
 
     // Internal function to be called by the proposal execution
-    function internalDelegateRoleType(uint256 roleType, address delegate) external {
+    function internalDelegateMainDaoRoleType(uint256 roleType, address delegate) external {
         require(msg.sender == address(this), "Unauthorized");
         roleDelegations[roleType] = delegate; // Delegate the role type
     }
 
     // Function to assign a role if it's delegated
-    function delegatedAssignRole(address entityAddress, uint256 role) external {
+    function delegatedAssignMainDaoRole(address entityAddress, uint256 role) external {
         address delegate = roleDelegations[role];
         if (delegate != address(0) && msg.sender == delegate) {
             // Role type is delegated and the caller is the delegate,
@@ -97,7 +97,7 @@ contract IdentityHandler is DaoContract {
     }
 
     // Function to revoke a role if it's delegated
-    function delegatedRevokeRole(address entityAddress, uint256 role) external {
+    function delegatedRevokeMainDaoRole(address entityAddress, uint256 role) external {
         address delegate = roleDelegations[role];
         if (delegate != address(0) && msg.sender == delegate) {
             // Role type is delegated and the caller is the delegate,
