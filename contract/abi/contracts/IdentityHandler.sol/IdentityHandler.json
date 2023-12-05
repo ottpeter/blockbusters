@@ -60,27 +60,9 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "user",
+        "name": "target",
         "type": "address"
       },
-      {
-        "internalType": "uint256",
-        "name": "role",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "duration",
-        "type": "uint256"
-      }
-    ],
-    "name": "createAssignMainDaoRoleProposal",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
       {
         "internalType": "uint256",
         "name": "role",
@@ -97,7 +79,7 @@
         "type": "uint256"
       }
     ],
-    "name": "createAssignRoleProposal",
+    "name": "createAssignManagedRoleProposal",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -218,27 +200,9 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "user",
+        "name": "target",
         "type": "address"
       },
-      {
-        "internalType": "uint256",
-        "name": "role",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "duration",
-        "type": "uint256"
-      }
-    ],
-    "name": "createRevokeMainDaoRoleProposal",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
       {
         "internalType": "uint256",
         "name": "role",
@@ -255,7 +219,7 @@
         "type": "uint256"
       }
     ],
-    "name": "createRoleProposal",
+    "name": "createRevokeManagedRoleProposal",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -529,24 +493,6 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "role",
-        "type": "uint256"
-      }
-    ],
-    "name": "internalAssignMainDaoRole",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint256",
         "name": "roleType",
         "type": "uint256"
@@ -576,24 +522,6 @@
       }
     ],
     "name": "internalRegisterRoleHandler",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "role",
-        "type": "uint256"
-      }
-    ],
-    "name": "internalRevokeMainDaoRole",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
