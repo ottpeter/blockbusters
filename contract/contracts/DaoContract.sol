@@ -209,7 +209,7 @@ contract DaoContract is IDaoContract {
     }
 
     // Function to create a proposal for assignig a role
-    function createAssignRoleProposal(uint256 role, address handlerAddress, uint256 duration) public {
+    function createAssignManagedRoleProposal(address target, uint256 role, address handlerAddress, uint256 duration) public {
         // Function definition as a string
         string memory functionDefinition = "assignRole(uint256,address)";
 
@@ -220,7 +220,7 @@ contract DaoContract is IDaoContract {
         bytes memory parameters = abi.encode(handlerAddress, role);
 
         // Create a CALL type proposal in the IdentityHandler DAO
-        createProposal(ProposalType.CALL, "Assign role", address(this), 0, functionDefinitionBytes, parameters, duration);
+        createProposal(ProposalType.CALL, "Assign role", target, 0, functionDefinitionBytes, parameters, duration);
     }
 
     // Functions
@@ -237,7 +237,7 @@ contract DaoContract is IDaoContract {
     }
     
     // Function to create a proposal for assignig a role
-    function createRoleProposal(uint256 role, address handlerAddress, uint256 duration) public {
+    function createRevokeManagedRoleProposal(address target, uint256 role, address handlerAddress, uint256 duration) public {
         // Function definition as a string
         string memory functionDefinition = "revokeRole(uint256,address)";
 
@@ -248,7 +248,7 @@ contract DaoContract is IDaoContract {
         bytes memory parameters = abi.encode(handlerAddress, role);
 
         // Create a CALL type proposal in the IdentityHandler DAO
-        createProposal(ProposalType.CALL, "Revoke role", address(this), 0, functionDefinitionBytes, parameters, duration);
+        createProposal(ProposalType.CALL, "Revoke role", target, 0, functionDefinitionBytes, parameters, duration);
     }
 
     function revokeRole(address entityAddress, uint256 role) public {
