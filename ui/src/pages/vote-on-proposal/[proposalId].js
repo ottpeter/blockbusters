@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Grid, LinearProgress, Stack, Typography } from '@mui/material';
 import * as Yup from 'yup';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { useRouter } from 'next/router';
@@ -14,20 +14,25 @@ const Page = () => {
   const router = useRouter();
   const { proposalId } = router.query;
   const [proposal, setProposal] = useState(null);
+  const [percentage, setPercentage] = useState(null);
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     fetchProposal(proposalId);
-  }, [proposalId]);
+  }, [proposalId, refresh]);
 
   async function fetchProposal(proposalId) {
     const result = await getProposal(proposalId);
     console.log("result: ", result)
     setProposal(result);
+    const perc = result.totalVotes === 0 ? 0 : (result.support / result.totalVotes) * 100;
+    setPercentage(perc)
   }
   
-  function voteOnOption(optionIndex) {
+  async function voteOnOption(optionIndex) {
     console.log("option index: ", optionIndex)
-    vote(proposalId, optionIndex);
+    await vote(proposalId, optionIndex);
+    setRefresh(refresh +1);
   }
 
   if (!proposal) return <Loading />
@@ -70,21 +75,28 @@ const Page = () => {
                 {proposal.description}
               </Typography>
             </Stack>
-            <Stack>
-              Vote Count: {proposal.totalVotes}
-            </Stack>
-            <Stack>
-              Voted Yes: {proposal.support}
+            <Stack spacing={3} marginBottom={2}>
+
+              <Typography variant="body1" align="center">
+                {`${proposal.support} Yes / ${proposal.totalVotes} Total Votes`}
+              </Typography>
+
+              <LinearProgress variant="determinate" value={percentage} />
+
             </Stack>
             <Stack spacing={3}>
             
               <Button
+                color="success"
+                variant="contained"
                 onClick={() => voteOnOption(true)}
               >
                 {"Yes"}
               </Button>
 
               <Button
+                color="error"
+                variant="contained"
                 onClick={() => voteOnOption(false)}
               >
                 {"No"}

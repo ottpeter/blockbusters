@@ -15,12 +15,13 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { checkStakeBalance, getMinimumStake, stake } from "src/utils/userTools";
+import { checkStakeBalance, getMinimumStake, registerCitizen, stake } from "src/utils/userTools";
 import { getAddress } from "src/utils/getAddress";
 import { formatEther } from "viem";
 
 const Page = () => {
   const [address, setAddress] = useState("");
+  const [minimumStakeReached, setMinimumStakeReached] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -35,9 +36,8 @@ const Page = () => {
     onSubmit: async (values, helpers) => {
       console.log("submit");
       try {
-        console.log(values, "vals");
-        // await auth.signUp(values.address, values.stakeAmount);
-        // router.push("/");
+        await registerCitizen(address);
+        router.push("/");
       } catch (err) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
@@ -47,21 +47,22 @@ const Page = () => {
   });
 
   useEffect(() => {
-    addressGetter();
+    initComponent();
   }, []);
 
-  async function addressGetter() {
+  async function initComponent() {
     const res = await getAddress();
+    const staked = await checkStakeBalance(res);
+    const minimum = await getMinimumStake();
     setAddress(res);
+    if (staked >= minimum) setMinimumStakeReached(true);
   }
 
-  async function startStaking() {
-    checkStakeBalance(address);
-
-    const result = await stake(address, formatEther(100000000000000000000n));
-    // We can stake, we can check minimum stake, we can check the stake amount for a user
+  async function startStaking() {    
+    const result = await stake(address, 100000000000000000000n);
+    const staked = await checkStakeBalance(address);
     const minimum = await getMinimumStake();
-    console.log("Minimum: ", minimum)
+    if (staked >= minimum) setMinimumStakeReached(true);
   }
 
 
@@ -91,13 +92,14 @@ const Page = () => {
                             <Grid xs={12} md={6}>
                               <TextField
                                 fullWidth
+                                disabled
                                 error={!!(formik.touched.address && formik.errors.address)}
                                 helperText={formik.touched.address && formik.errors.address}
                                 label="Address"
                                 name="address"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={formik.values.address}
+                                value={address}
                               />
                             </Grid>
                             <Grid xs={12} md={6}>
@@ -120,7 +122,11 @@ const Page = () => {
                           Stake
                         </Button>
                         
-                        <Button type="submit" variant="contained">
+                        <Button 
+                          type="submit" 
+                          variant="contained"
+                          disabled={!minimumStakeReached}
+                        >
                           Save citizen
                         </Button>
                       </CardActions>
