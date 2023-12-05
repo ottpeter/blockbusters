@@ -54,24 +54,24 @@ export const items = [
       </SvgIcon>
     ),
   },
-  {
-    title: "Staking",
-    path: "/stakeing",
-    icon: (
-      <SvgIcon fontSize="small">
-        <UsersIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: "Policy Library",
-    path: "/policy-library",
-    icon: (
-      <SvgIcon fontSize="small">
-        <UsersIcon />
-      </SvgIcon>
-    ),
-  },
+  // {
+  //   title: "Staking",
+  //   path: "/stakeing",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <UsersIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
+  // {
+  //   title: "Policy Library",
+  //   path: "/policy-library",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <UsersIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
   {
     title: "Asset Registry",
     path: "/asset-registry",
