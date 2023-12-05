@@ -1,4 +1,4 @@
-const CONTRACT_ADDRESS = "0xd4d0B560C569Ae2a11F70ed396938DF605F2654B";
+const CONTRACT_ADDRESS = "0xD76481c1695860fB1043d25Ea84c298F8a360afE";
 const abi = require("../../../contract/abi/contracts/DaoContract.sol/DaoContract.json");
 import { ethers } from "ethers";
 

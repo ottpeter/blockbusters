@@ -1,5 +1,5 @@
-const CONTRACT_ADDRESS = "0x27F7D4AA317033380b5b911Ed15415E27cBec37f";
-const IDENTITY_CONTRACT_ADDRESS = "0x92B3d9e5bF1F61dF991Ef12bb56Cf057863a69E1";
+const CONTRACT_ADDRESS = "0xD76481c1695860fB1043d25Ea84c298F8a360afE";
+const IDENTITY_CONTRACT_ADDRESS = "0x0Ce6B793a91873ae5152fCdf68C16C7F53A095c3";
 const abi = require("../../../contract/abi/contracts/DaoContract.sol/DaoContract.json");
 const identityAbi = require("../../../contract/abi/contracts/IdentityHandler.sol/IdentityHandler.json");
 import { ethers } from "ethers";
