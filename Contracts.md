@@ -20,9 +20,9 @@ No need to generate any newer typings.
 ┌──────────────────────────┬──────────────────────────────────────────────┐
 │         (index)          │                    Values                    │
 ├──────────────────────────┼──────────────────────────────────────────────┤
-│        DaoFactory        │ '0xe30056D9C078bd9Aa05514f1F6db0b908d9c3eF1' │
-│         DaoRoot          │ '0x27F7D4AA317033380b5b911Ed15415E27cBec37f' │
-│     IdentityHandler      │ '0x92B3d9e5bF1F61dF991Ef12bb56Cf057863a69E1' │
-│ PropertyRegistryContract │ '0x7CEa343C9cB4bdB10810909C86564252fC117480' │
-│    SimpleLandHandler     │ '0x31945F0EF3e60eC0262F2d6fF1d4FB57729e920e' │
+│        DaoFactory        │ '0x0f9DA506728dD640B49Db9bA6b4BA7De0b0CE243' │
+│         DaoRoot          │ '0xD76481c1695860fB1043d25Ea84c298F8a360afE' │
+│     IdentityHandler      │ '0x0Ce6B793a91873ae5152fCdf68C16C7F53A095c3' │
+│ PropertyRegistryContract │ '0x299D2B5BB49B152A6957aF7f953D102bf384ddD6' │
+│    SimpleLandHandler     │ '0xdFF93150016df4eD2A24Aa6B8572Ed0DdD5141EF' │
 └──────────────────────────┴──────────────────────────────────────────────┘
